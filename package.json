@@ -1,0 +1,54 @@
+{
+  "name": "radarchartwidget",
+  "widgetName": "RadarChartWidget",
+  "version": "1.0.0",
+  "description": "A high-performance radar chart widget for displaying categorical data with dynamic polygonal data points and 0-5 scale. Optimized for Mendix with advanced React patterns.",
+  "copyright": "© Mendix Technology BV 2022. All rights reserved.",
+  "author": "Hikmet.Erdil",
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "Apache-2.0",
+  "config": {
+    "projectPath": "./tests/testProject",
+    "mendixHost": "http://localhost:8080",
+    "developmentPort": 3000
+  },
+  "packagePath": "mendix",
+  "scripts": {
+    "start": "pluggable-widgets-tools start:server",
+    "dev": "pluggable-widgets-tools start:web",
+    "build": "pluggable-widgets-tools build:web",
+    "lint": "pluggable-widgets-tools lint",
+    "lint:fix": "pluggable-widgets-tools lint:fix",
+    "test": "echo \"Testing framework not configured. Run 'npm run lint' for code quality checks.\"",
+    "test:unit": "echo \"Unit testing not configured. Consider adding Jest for comprehensive testing.\"",
+    "test:e2e": "npx cypress open --browser chrome --e2e",
+    "prerelease": "npm run lint",
+    "release": "pluggable-widgets-tools release:web",
+    "analyze": "npm run build && echo \"Bundle analysis: Check dist/ folder for output\"",
+    "clean": "rm -rf dist && rm -rf node_modules/.cache"
+  },
+  "devDependencies": {
+    "@mendix/pluggable-widgets-tools": "^10.7.1",
+    "@types/big.js": "^6.0.2"
+  },
+  "dependencies": {},
+  "resolutions": {
+    "react": "18.2.0",
+    "react-native": "0.72.7"
+  },
+  "overrides": {
+    "react": "18.2.0",
+    "react-native": "0.72.7"
+  },
+  "keywords": [
+    "mendix",
+    "widget",
+    "radar-chart",
+    "visualization",
+    "performance",
+    "react",
+    "typescript"
+  ]
+}

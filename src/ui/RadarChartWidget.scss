@@ -1,0 +1,747 @@
+/* ===================================
+   RADAR CHART WIDGET - LILAC/PURPLE REDESIGN
+   Comprehensive redesign with semantic labeling and modern aesthetics
+   =================================== */
+
+// ===== LILAC/PURPLE COLOR PALETTE =====
+$colors: (
+    // Primary lilac/purple palette - EXACT SPECIFICATIONS
+    primary: #a084e7,
+    // Primary Fill Color (Inner Data Area)
+    primary-dark: #7c5ac4,
+    // Border/Outline of Data Area - EXACT SPEC
+    primary-darker: #6d42c4,
+    primary-light: #c4a7f0,
+    primary-lighter: #e8ddf7,
+
+    // Accent colors
+    accent: #9b59b6,
+    accent-light: #bb8fce,
+
+    // Neutral tones
+    neutral-50: #fdfcff,
+    neutral-100: #f8f6fc,
+    neutral-200: #e8e4f3,
+    neutral-300: #d1c7e8,
+    neutral-400: #a699c7,
+    neutral-500: #7b6fa3,
+    neutral-600: #5d5684,
+    neutral-700: #453b65,
+    neutral-800: #2d2447,
+    neutral-900: #1a1429,
+
+    // Semantic colors
+    success: #27ae60,
+    warning: #f39c12,
+    error: #e74c3c,
+    info: #3498db,
+
+    // Base colors
+    white: #ffffff,
+    black: #000000,
+
+    // Grid and background - EXACT SPECIFICATIONS
+    grid-light: #f0f0f0,
+    grid-subtle: #e0e0e0,
+    // Grid Lines (Radar Spokes & Concentric Circles) - EXACT SPEC
+    background-primary: #ffffff,
+    // Background (Widget/Card) - EXACT SPEC
+    background-glass: rgba(255, 255, 255, 0.85),
+    // Text colors - EXACT SPECIFICATIONS
+    text-primary: #333333,
+    // Axis Labels - EXACT SPEC
+    text-secondary: #000000 // Alternative dark text
+);
+
+// ===== SMOOTH TRANSITIONS =====
+$transitions: (
+    fast: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    normal: 350ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    slow: 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    smooth: 250ms cubic-bezier(0.4, 0, 0.2, 1)
+);
+
+$breakpoints: (
+    xs: 320px,
+    sm: 640px,
+    md: 768px,
+    lg: 1024px,
+    xl: 1280px
+);
+
+// ===== ENHANCED MIXINS =====
+@mixin respond-to($breakpoint) {
+    @media (max-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+@mixin lilac-gradient-text($start: map-get($colors, primary), $end: map-get($colors, accent)) {
+    background: linear-gradient(135deg, $start 0%, $end 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+@mixin smooth-focus-ring($color: map-get($colors, primary)) {
+    outline: 2px solid rgba($color, 0.6);
+    outline-offset: 3px;
+    border-radius: 8px;
+}
+
+// ===== BASE COMPONENT REDESIGN =====
+.radar-chart-widget {
+    display: inline-block;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    position: relative;
+    padding: 24px;
+    transition: map-get($transitions, smooth);
+    will-change: transform;
+
+    // ===== MODIFIERS =====
+    &--compact {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    // ===== ELEMENTS =====
+    &__container {
+        position: relative;
+        width: 100%;
+    }
+
+    &__title {
+        @include lilac-gradient-text();
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: -0.025em;
+        text-align: center;
+        margin-bottom: 20px;
+        line-height: 1.3;
+    }
+
+    &__svg {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        overflow: visible;
+        will-change: transform;
+        contain: layout style paint;
+    }
+
+    // ===== LOADING STATE =====
+    &__loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-size: 14px;
+        font-weight: 500;
+        color: map-get($colors, neutral-600);
+        animation: loading-pulse 2s ease-in-out infinite;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(map-get($colors, primary-light), 0.3), transparent);
+            animation: loading-shimmer 1.8s infinite;
+        }
+
+        &__spinner {
+            width: 32px;
+            height: 32px;
+            animation: loading-spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+
+        &__text {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        &__subtext {
+            font-size: 12px;
+            color: map-get($colors, neutral-500);
+        }
+    }
+
+    // ===== ERROR STATE =====
+    &__error {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+        color: #991b1b;
+
+        &__icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+            opacity: 0.8;
+        }
+
+        &__title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        &__message {
+            font-size: 13px;
+            color: #7f1d1d;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        &__actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        &__retry-btn {
+            color: map-get($colors, error);
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: map-get($transitions, fast);
+
+            &:hover {
+                color: darken(map-get($colors, error), 10%);
+            }
+        }
+    }
+
+    // ===== EMPTY STATE =====
+    &__empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 32px 24px;
+        color: map-get($colors, neutral-600);
+
+        &__icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.6;
+            color: map-get($colors, primary-light);
+        }
+
+        &__title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: map-get($colors, neutral-700);
+        }
+
+        &__message {
+            font-size: 14px;
+            line-height: 1.5;
+            max-width: 280px;
+        }
+    }
+
+    // ===== SKELETON LOADER =====
+    &__skeleton {
+        position: relative;
+        overflow: hidden;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, transparent, rgba(map-get($colors, primary-light), 0.4), transparent);
+            animation: skeleton-shimmer 1.8s infinite;
+        }
+
+        &__chart {
+            width: 100%;
+            height: 300px;
+            margin: 20px auto;
+        }
+
+        &__labels {
+            display: flex;
+            justify-content: space-around;
+            padding: 0 20px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        &__label {
+            height: 12px;
+            flex: 1;
+            min-width: 60px;
+            max-width: 100px;
+        }
+    }
+}
+
+// ===== CHART ELEMENTS REDESIGN - EXACT SPECIFICATIONS =====
+.radar-chart {
+    &__grid-circle,
+    &__grid-polygon {
+        stroke: map-get($colors, grid-subtle); // #E0E0E0 - EXACT SPEC
+        stroke-width: 0.5; // Extremely thin grid lines - EXACT SPEC
+        opacity: 1; // Full visibility for subtle lines
+        transition: map-get($transitions, smooth);
+        fill: none;
+    }
+
+    &__spoke {
+        stroke: map-get($colors, grid-subtle); // #E0E0E0 - EXACT SPEC
+        stroke-width: 0.5; // Extremely thin grid lines - EXACT SPEC
+        opacity: 1; // Full visibility for subtle lines
+        transition: map-get($transitions, smooth);
+    }
+
+    &__area {
+        fill: map-get($colors, primary); // #A084E7 - EXACT SPEC
+        // fill-opacity removed - let component prop control opacity
+        stroke: map-get($colors, primary-dark); // #7C5AC4 - EXACT SPEC
+        stroke-width: 2; // Clean border width
+        stroke-linejoin: round;
+        transition: all map-get($transitions, smooth);
+        will-change: fill-opacity;
+    }
+
+    &__data-point {
+        fill: map-get($colors, primary-dark); // #7C5AC4 - EXACT SPEC
+        stroke: map-get($colors, white);
+        stroke-width: 2;
+        transition: map-get($transitions, fast);
+        cursor: pointer;
+        will-change: r;
+    }
+
+    &__category-label {
+        font-weight: 600;
+        font-size: 12px;
+        fill: map-get($colors, text-primary); // #333333 - EXACT SPEC for axis labels
+        transition: map-get($transitions, fast);
+        cursor: default;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        user-select: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    &__value-label {
+        font-weight: 500;
+        font-size: 10px;
+        fill: map-get($colors, text-primary); // #333333 - EXACT SPEC for consistency
+        transition: map-get($transitions, fast);
+        pointer-events: none;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        user-select: none;
+    }
+
+    &__scale-label {
+        font-weight: 400;
+        font-size: 10px;
+        fill: map-get($colors, text-primary); // #333333 - EXACT SPEC for consistency
+        transition: map-get($transitions, fast);
+        pointer-events: none;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        user-select: none;
+    }
+
+    // ===== HOVER INTERACTIONS DISABLED - NO COLOR CHANGES =====
+    &:hover {
+        .radar-chart__grid-circle,
+        .radar-chart__grid-polygon {
+            // No color or style changes on hover
+        }
+
+        .radar-chart__spoke {
+            // No color or style changes on hover
+        }
+
+        .radar-chart__category-label {
+            // No color or style changes on hover
+        }
+
+        .radar-chart__value-label {
+            // No color or style changes on hover
+        }
+
+        .radar-chart__area {
+            // No color or style changes on hover
+        }
+    }
+}
+
+// ===== ENHANCED TOOLTIP STYLES =====
+.radar-chart__tooltip {
+    position: fixed;
+    z-index: 1000;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: map-get($colors, text-primary);
+    background: map-get($colors, white);
+    border: 1px solid map-get($colors, grid-subtle);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    white-space: nowrap;
+    animation: tooltipFadeIn 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform, opacity;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    // Tooltip name styling
+    &__name {
+        font-weight: 600;
+        margin-bottom: 2px;
+        color: map-get($colors, text-primary);
+    }
+
+    // Tooltip value styling
+    &__value {
+        color: map-get($colors, primary-dark);
+        font-weight: 500;
+    }
+
+    // Small arrow pointing to the data point (optional enhancement)
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 8px;
+        height: 8px;
+        background: map-get($colors, white);
+        border: 1px solid map-get($colors, grid-subtle);
+        border-top: none;
+        border-left: none;
+        transform: translateX(-50%) rotate(45deg);
+    }
+}
+
+// ===== LEGEND ENHANCEMENTS =====
+.radar-chart__legend {
+    padding: 16px;
+
+    &-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &-color {
+        width: 14px;
+        height: 14px;
+        margin-right: 10px;
+    }
+
+    &-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: map-get($colors, neutral-700);
+    }
+}
+
+// ===== ANIMATIONS =====
+@keyframes loading-pulse {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.85;
+        transform: scale(1.01);
+    }
+}
+
+@keyframes loading-shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes loading-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+// ===== RESPONSIVE DESIGN =====
+@include respond-to(md) {
+    .radar-chart-widget {
+        width: 100% !important;
+        max-width: 400px;
+        padding: 20px;
+        margin: 0 auto;
+
+        &__svg {
+            width: 100%;
+            height: auto;
+        }
+
+        &__title {
+            font-size: 16px;
+        }
+    }
+
+    .radar-chart {
+        &__category-label {
+            font-size: 11px;
+        }
+
+        &__value-label {
+            font-size: 9px;
+        }
+    }
+}
+
+@include respond-to(sm) {
+    .radar-chart-widget {
+        padding: 16px;
+
+        &__title {
+            font-size: 14px;
+        }
+    }
+
+    .radar-chart {
+        &__category-label {
+            font-size: 10px;
+        }
+
+        &__value-label {
+            font-size: 8px;
+        }
+    }
+}
+
+// ===== ACCESSIBILITY ENHANCEMENTS =====
+@media (prefers-contrast: high) {
+    .radar-chart {
+        &__area {
+            stroke-width: 4 !important;
+            fill-opacity: 0.6 !important;
+        }
+
+        &__category-label,
+        &__value-label,
+        &__scale-label {
+            font-weight: 700 !important;
+            fill: map-get($colors, black) !important;
+        }
+
+        &__grid-circle,
+        &__grid-polygon,
+        &__spoke {
+            stroke-width: 2 !important;
+            stroke: map-get($colors, neutral-700) !important;
+            opacity: 1 !important;
+        }
+
+        &__data-point {
+            stroke-width: 3 !important;
+            r: 5 !important;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .radar-chart-widget,
+    .radar-chart-widget *,
+    .radar-chart {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+// ===== DARK MODE SUPPORT =====
+@media (prefers-color-scheme: dark) {
+    .radar-chart-widget {
+        color: map-get($colors, neutral-100);
+
+        &__title {
+            @include lilac-gradient-text(#c4a7f0, #bb8fce);
+        }
+
+        &__loading {
+            color: map-get($colors, neutral-300);
+        }
+
+        &__error {
+            color: #fecaca;
+        }
+
+        &__empty {
+            color: map-get($colors, neutral-400);
+
+            &__title {
+                color: map-get($colors, neutral-200);
+            }
+        }
+    }
+
+    .radar-chart {
+        &__grid-circle,
+        &__grid-polygon,
+        &__spoke {
+            stroke: map-get($colors, neutral-600);
+        }
+
+        &__area {
+            fill: map-get($colors, primary-light);
+            stroke: map-get($colors, primary);
+        }
+
+        &__category-label {
+            fill: map-get($colors, neutral-200);
+        }
+
+        &__value-label {
+            fill: map-get($colors, neutral-300);
+        }
+
+        &__scale-label {
+            fill: map-get($colors, neutral-400);
+        }
+
+        &:hover {
+            .radar-chart__category-label {
+                // No color changes on hover
+            }
+
+            .radar-chart__value-label {
+                // No color changes on hover
+            }
+        }
+    }
+
+    .radar-chart__tooltip {
+        color: map-get($colors, neutral-100);
+        background: map-get($colors, neutral-800);
+        border-color: map-get($colors, neutral-600);
+
+        &__name {
+            color: map-get($colors, neutral-100);
+        }
+
+        &__value {
+            color: map-get($colors, primary-light);
+        }
+
+        &::before {
+            background: map-get($colors, neutral-800);
+            border-color: map-get($colors, neutral-600);
+        }
+    }
+}
+
+// ===== SCREEN READER ONLY =====
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+// ===== PRINT STYLES =====
+@media print {
+    .radar-chart-widget {
+        page-break-inside: avoid;
+
+        &__loading,
+        &__error {
+            color: map-get($colors, black) !important;
+        }
+    }
+
+    .radar-chart {
+        &__area {
+            filter: none !important;
+        }
+
+        &__data-point {
+            filter: none !important;
+        }
+    }
+}
+
+// ===== PERFORMANCE OPTIMIZATIONS =====
+.radar-chart-widget__svg {
+    will-change: transform;
+    contain: layout style paint;
+}
+
+.radar-chart__area {
+    will-change: fill-opacity;
+}
+
+.radar-chart__data-point {
+    will-change: r;
+}
+
+// ===== ENHANCED DATA POINT INTERACTIONS =====
+.radar-chart__data-point {
+    cursor: pointer;
+    transition: all map-get($transitions, smooth);
+
+    &:hover {
+        // No hover effects on data points
+    }
+
+    &:focus {
+        @include smooth-focus-ring();
+    }
+}

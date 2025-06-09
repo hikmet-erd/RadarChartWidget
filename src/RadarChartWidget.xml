@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="mendix.radarchartwidget.RadarChartWidget" pluginWidget="true" needsEntityContext="true" offlineCapable="true"
+        supportedPlatform="Web"
+        xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>Radar Chart Widget</name>
+    <description>A radar chart widget for displaying categorical performance data with 8 spokes and 0-5 scale</description>
+    <icon>
+        iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAABp1BMVEUAAABV//9mzP9LtP9Ms/9Jtv9NsvdJsfpLtPpJsfdJsfhJsvhJsvdKsvdJsPhKsPhJsfdJsPhJsfdIsfhJsfdIsPdJsfhJsfhJsPhJsPhIsfhIsPdJsPdKsPdKsfdNsvdOsvdPs/dQs/dRtPdStPdTtPdUtfdWtvdXtvdauPdcuPdeufdeufhguvhiu/hju/hkvPhmvfhnvfhpvvhrv/huwPhvwfhxwfhywvhzwvh4xfl5xfl6xfl8xvl9xvl9x/mByPmCyfmFyvmGyvmJzPmKzPmLzfmNzvqPzvqQz/qT0PqU0PqU0fqX0vqY0vqa0/qe1fqg1vqj1/uk1/un2fup2vut2/uv3Puw3Puw3fuz3vu13/u23/u34Pu44Pu64fu64fy84vy94vy+4/y/4/zD5fzE5fzG5vzH5vzI5/zK6PzL6PzR6/zT7P3U7P3V7f3W7f3Y7v3Z7v3c8P3e8f3f8f3g8f3i8v3l8/3l9P3n9P3r9v7t9/7u9/7v+P7w+P7x+f7y+f70+v71+v74/P75/P76/f77/f78/f78/v79/v7+/v7////6dMsRAAAAG3RSTlMAAwURGxwhMTNic3SEh4iVp7XBzejt7vH5/f6PsMNWAAABsklEQVR4AWIYfGAUjIJRMAqYuYREJKWJAqLCPGwY+jnFpEkBEryMqPr5pEkFgkwo9kuTDviR/S9GhgFSHAgDuKXJAQIIA4TIMkAcEY4i0mQBVrgBkuQZwA43QJo8wIFhQEhEOIBQOutHJozDOP5Crp4e1RhkJ0tKGJFd6oNEdtmJyEIzpaZl5nrRZgaHM/2Pf5/vwXXfyagXgG93bwSAlEolowLMm9w83gibhXH2gKKVdD67gTnWjwCk+VVjMQS4suSnnjMLRVFc9sAHvAX2A9fySaXNBMbEZVUWscaHIMRuqwBgD8hDEbnsRmfjUKJkAQZGCTlO/xWBwIADQLIZBlY441MvfoF1xlFS/4fy+bzXKh4dgNJE7L3eh3tmtuWa+AMcMIY3dgUvZQpGEYmMw2kD7HC+R29UqyoXLaBd0QZxzgXgikLLDSqJTKU5HOcS0MsbA9jPqtwCRvXm2eorBbNIJBw3KJ9O4Yl+AAXdnyaLt7PWN3jRWLvzmAVp94zO5+n41/onfo/UpExxZqI0O7NQr0DhIq9Io7hQpbRYp7hiobRqo6ByFcNWuY6CUTAKRgEAo8X0lBD3V30AAAAASUVORK5CYII=
+    </icon>
+    <properties>
+        <propertyGroup caption="Data Source">
+            <property key="dataSource" type="datasource" isList="true" required="true">
+                <caption>Data source</caption>
+                <description>The data source containing the radar chart data points</description>
+            </property>
+            <property key="nameAttribute" type="attribute" dataSource="dataSource" required="true">
+                <caption>Name attribute</caption>
+                <description>The attribute containing the category name for each data point</description>
+                <attributeTypes>
+                    <attributeType name="String"/>
+                </attributeTypes>
+            </property>
+            <property key="valueAttribute" type="attribute" dataSource="dataSource" required="true">
+                <caption>Score attribute</caption>
+                <description>The attribute containing the score value (0-5) for each data point</description>
+                <attributeTypes>
+                    <attributeType name="Decimal"/>
+                    <attributeType name="Integer"/>
+                    <attributeType name="Long"/>
+                </attributeTypes>
+            </property>
+        </propertyGroup>
+        <propertyGroup caption="Chart Configuration">
+            <property key="chartTitle" type="string" required="false">
+                <caption>Chart title</caption>
+                <description>Optional title displayed above the radar chart</description>
+            </property>
+            <property key="maxValue" type="decimal" defaultValue="5">
+                <caption>Maximum scale value</caption>
+                <description>The maximum value on the radar chart scale (default: 5)</description>
+            </property>
+            <property key="showLabels" type="boolean" defaultValue="true">
+                <caption>Show labels</caption>
+                <description>Whether to display category labels around the chart</description>
+            </property>
+            <property key="showGridLines" type="boolean" defaultValue="true">
+                <caption>Show grid lines</caption>
+                <description>Whether to display grid lines on the chart</description>
+            </property>
+        </propertyGroup>
+        <propertyGroup caption="Appearance">
+            <property key="chartWidth" type="integer" defaultValue="400">
+                <caption>Chart width</caption>
+                <description>Width of the chart in pixels</description>
+            </property>
+            <property key="chartHeight" type="integer" defaultValue="400">
+                <caption>Chart height</caption>
+                <description>Height of the chart in pixels</description>
+            </property>
+            <property key="fillColor" type="string" defaultValue="#3498db">
+                <caption>Fill color</caption>
+                <description>Color for the radar chart area fill (hex color code)</description>
+            </property>
+            <property key="strokeColor" type="string" defaultValue="#2980b9">
+                <caption>Stroke color</caption>
+                <description>Color for the radar chart border line (hex color code)</description>
+            </property>
+            <property key="fillOpacity" type="decimal" defaultValue="0.3">
+                <caption>Fill opacity</caption>
+                <description>Opacity of the chart area fill (0.0 to 1.0)</description>
+            </property>
+            <property key="backgroundColor" type="string" defaultValue="#ffffff">
+                <caption>Background color</caption>
+                <description>Background color of the chart container (hex color code)</description>
+            </property>
+            <property key="textColor" type="string" defaultValue="#333333">
+                <caption>Text color</caption>
+                <description>Color for chart labels and text (hex color code)</description>
+            </property>
+            <property key="gridColor" type="string" defaultValue="#e0e0e0">
+                <caption>Grid color</caption>
+                <description>Color for grid lines and spokes (hex color code)</description>
+            </property>
+            <property key="showLegend" type="boolean" defaultValue="false">
+                <caption>Show legend</caption>
+                <description>Whether to display a legend with data point information</description>
+            </property>
+            <property key="legendPosition" type="enumeration" defaultValue="right">
+                <caption>Legend position</caption>
+                <description>Position of the legend relative to the chart</description>
+                <enumerationValues>
+                    <enumerationValue key="top">Top</enumerationValue>
+                    <enumerationValue key="right">Right</enumerationValue>
+                    <enumerationValue key="bottom">Bottom</enumerationValue>
+                    <enumerationValue key="left">Left</enumerationValue>
+                </enumerationValues>
+            </property>
+            <property key="showValueLabels" type="boolean" defaultValue="true">
+                <caption>Show value labels</caption>
+                <description>Whether to display value labels on data points</description>
+            </property>
+        </propertyGroup>
+        <propertyGroup caption="Events">
+            <property key="onClickAction" type="action" required="false">
+                <caption>On click action</caption>
+                <description>Action to trigger when the chart is clicked</description>
+            </property>
+        </propertyGroup>
+    </properties>
+</widget>
