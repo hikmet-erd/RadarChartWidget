@@ -3,6 +3,10 @@
    Comprehensive redesign with semantic labeling and modern aesthetics
    =================================== */
 
+// Import new SCSS modules for modern functions
+@use "sass:map";
+@use "sass:color";
+
 // ===== LILAC/PURPLE COLOR PALETTE =====
 $colors: (
     // Primary lilac/purple palette - EXACT SPECIFICATIONS
@@ -71,19 +75,19 @@ $breakpoints: (
 
 // ===== ENHANCED MIXINS =====
 @mixin respond-to($breakpoint) {
-    @media (max-width: map-get($breakpoints, $breakpoint)) {
+    @media (max-width: map.get($breakpoints, $breakpoint)) {
         @content;
     }
 }
 
-@mixin lilac-gradient-text($start: map-get($colors, primary), $end: map-get($colors, accent)) {
+@mixin lilac-gradient-text($start: map.get($colors, primary), $end: map.get($colors, accent)) {
     background: linear-gradient(135deg, $start 0%, $end 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-@mixin smooth-focus-ring($color: map-get($colors, primary)) {
+@mixin smooth-focus-ring($color: map.get($colors, primary)) {
     outline: 2px solid rgba($color, 0.6);
     outline-offset: 3px;
     border-radius: 8px;
@@ -95,7 +99,7 @@ $breakpoints: (
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     position: relative;
     padding: 24px;
-    transition: map-get($transitions, smooth);
+    transition: map.get($transitions, smooth);
     will-change: transform;
 
     // ===== MODIFIERS =====
@@ -137,7 +141,7 @@ $breakpoints: (
         flex-direction: column;
         font-size: 14px;
         font-weight: 500;
-        color: map-get($colors, neutral-600);
+        color: map.get($colors, neutral-600);
         animation: loading-pulse 2s ease-in-out infinite;
         position: relative;
         overflow: hidden;
@@ -149,7 +153,7 @@ $breakpoints: (
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(map-get($colors, primary-light), 0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(map.get($colors, primary-light), 0.3), transparent);
             animation: loading-shimmer 1.8s infinite;
         }
 
@@ -167,7 +171,7 @@ $breakpoints: (
 
         &__subtext {
             font-size: 12px;
-            color: map-get($colors, neutral-500);
+            color: map.get($colors, neutral-500);
         }
     }
 
@@ -209,15 +213,15 @@ $breakpoints: (
         }
 
         &__retry-btn {
-            color: map-get($colors, error);
+            color: map.get($colors, error);
             padding: 8px 16px;
             font-size: 12px;
             font-weight: 500;
             cursor: pointer;
-            transition: map-get($transitions, fast);
+            transition: map.get($transitions, fast);
 
             &:hover {
-                color: darken(map-get($colors, error), 10%);
+                color: color.scale(map.get($colors, error), $lightness: -10%);
             }
         }
     }
@@ -230,20 +234,20 @@ $breakpoints: (
         flex-direction: column;
         text-align: center;
         padding: 32px 24px;
-        color: map-get($colors, neutral-600);
+        color: map.get($colors, neutral-600);
 
         &__icon {
             font-size: 48px;
             margin-bottom: 16px;
             opacity: 0.6;
-            color: map-get($colors, primary-light);
+            color: map.get($colors, primary-light);
         }
 
         &__title {
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 8px;
-            color: map-get($colors, neutral-700);
+            color: map.get($colors, neutral-700);
         }
 
         &__message {
@@ -265,7 +269,7 @@ $breakpoints: (
             right: 0;
             bottom: 0;
             left: 0;
-            background: linear-gradient(90deg, transparent, rgba(map-get($colors, primary-light), 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(map.get($colors, primary-light), 0.4), transparent);
             animation: skeleton-shimmer 1.8s infinite;
         }
 
@@ -296,35 +300,35 @@ $breakpoints: (
 .radar-chart {
     &__grid-circle,
     &__grid-polygon {
-        stroke: map-get($colors, grid-subtle); // #E0E0E0 - EXACT SPEC
+        stroke: map.get($colors, grid-subtle); // #E0E0E0 - EXACT SPEC
         stroke-width: 0.5; // Extremely thin grid lines - EXACT SPEC
         opacity: 1; // Full visibility for subtle lines
-        transition: map-get($transitions, smooth);
+        transition: map.get($transitions, smooth);
         fill: none;
     }
 
     &__spoke {
-        stroke: map-get($colors, grid-subtle); // #E0E0E0 - EXACT SPEC
+        stroke: map.get($colors, grid-subtle); // #E0E0E0 - EXACT SPEC
         stroke-width: 0.5; // Extremely thin grid lines - EXACT SPEC
         opacity: 1; // Full visibility for subtle lines
-        transition: map-get($transitions, smooth);
+        transition: map.get($transitions, smooth);
     }
 
     &__area {
-        fill: map-get($colors, primary); // #A084E7 - EXACT SPEC
+        fill: map.get($colors, primary); // #A084E7 - EXACT SPEC
         // fill-opacity removed - let component prop control opacity
-        stroke: map-get($colors, primary-dark); // #7C5AC4 - EXACT SPEC
+        stroke: map.get($colors, primary-dark); // #7C5AC4 - EXACT SPEC
         stroke-width: 2; // Clean border width
         stroke-linejoin: round;
-        transition: all map-get($transitions, smooth);
+        transition: all map.get($transitions, smooth);
         will-change: fill-opacity;
     }
 
     &__data-point {
-        fill: map-get($colors, primary-dark); // #7C5AC4 - EXACT SPEC
-        stroke: map-get($colors, white);
+        fill: map.get($colors, primary-dark); // #7C5AC4 - EXACT SPEC
+        stroke: map.get($colors, white);
         stroke-width: 2;
-        transition: map-get($transitions, fast);
+        transition: map.get($transitions, fast);
         cursor: pointer;
         will-change: r;
     }
@@ -332,8 +336,8 @@ $breakpoints: (
     &__category-label {
         font-weight: 600;
         font-size: 12px;
-        fill: map-get($colors, text-primary); // #333333 - EXACT SPEC for axis labels
-        transition: map-get($transitions, fast);
+        fill: map.get($colors, text-primary); // #333333 - EXACT SPEC for axis labels
+        transition: map.get($transitions, fast);
         cursor: default;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         user-select: none;
@@ -345,8 +349,8 @@ $breakpoints: (
     &__value-label {
         font-weight: 500;
         font-size: 10px;
-        fill: map-get($colors, text-primary); // #333333 - EXACT SPEC for consistency
-        transition: map-get($transitions, fast);
+        fill: map.get($colors, text-primary); // #333333 - EXACT SPEC for consistency
+        transition: map.get($transitions, fast);
         pointer-events: none;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         user-select: none;
@@ -355,8 +359,8 @@ $breakpoints: (
     &__scale-label {
         font-weight: 400;
         font-size: 10px;
-        fill: map-get($colors, text-primary); // #333333 - EXACT SPEC for consistency
-        transition: map-get($transitions, fast);
+        fill: map.get($colors, text-primary); // #333333 - EXACT SPEC for consistency
+        transition: map.get($transitions, fast);
         pointer-events: none;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         user-select: none;
@@ -394,9 +398,9 @@ $breakpoints: (
     padding: 8px 12px;
     font-size: 12px;
     font-weight: 500;
-    color: map-get($colors, text-primary);
-    background: map-get($colors, white);
-    border: 1px solid map-get($colors, grid-subtle);
+    color: map.get($colors, text-primary);
+    background: map.get($colors, white);
+    border: 1px solid map.get($colors, grid-subtle);
     border-radius: 6px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     pointer-events: none;
@@ -409,12 +413,12 @@ $breakpoints: (
     &__name {
         font-weight: 600;
         margin-bottom: 2px;
-        color: map-get($colors, text-primary);
+        color: map.get($colors, text-primary);
     }
 
     // Tooltip value styling
     &__value {
-        color: map-get($colors, primary-dark);
+        color: map.get($colors, primary-dark);
         font-weight: 500;
     }
 
@@ -427,8 +431,8 @@ $breakpoints: (
         transform: translateX(-50%);
         width: 8px;
         height: 8px;
-        background: map-get($colors, white);
-        border: 1px solid map-get($colors, grid-subtle);
+        background: map.get($colors, white);
+        border: 1px solid map.get($colors, grid-subtle);
         border-top: none;
         border-left: none;
         transform: translateX(-50%) rotate(45deg);
@@ -458,7 +462,7 @@ $breakpoints: (
     &-label {
         font-size: 12px;
         font-weight: 500;
-        color: map-get($colors, neutral-700);
+        color: map.get($colors, neutral-700);
     }
 }
 
@@ -574,14 +578,14 @@ $breakpoints: (
         &__value-label,
         &__scale-label {
             font-weight: 700 !important;
-            fill: map-get($colors, black) !important;
+            fill: map.get($colors, black) !important;
         }
 
         &__grid-circle,
         &__grid-polygon,
         &__spoke {
             stroke-width: 2 !important;
-            stroke: map-get($colors, neutral-700) !important;
+            stroke: map.get($colors, neutral-700) !important;
             opacity: 1 !important;
         }
 
@@ -605,14 +609,14 @@ $breakpoints: (
 // ===== DARK MODE SUPPORT =====
 @media (prefers-color-scheme: dark) {
     .radar-chart-widget {
-        color: map-get($colors, neutral-100);
+        color: map.get($colors, neutral-100);
 
         &__title {
             @include lilac-gradient-text(#c4a7f0, #bb8fce);
         }
 
         &__loading {
-            color: map-get($colors, neutral-300);
+            color: map.get($colors, neutral-300);
         }
 
         &__error {
@@ -620,10 +624,10 @@ $breakpoints: (
         }
 
         &__empty {
-            color: map-get($colors, neutral-400);
+            color: map.get($colors, neutral-400);
 
             &__title {
-                color: map-get($colors, neutral-200);
+                color: map.get($colors, neutral-200);
             }
         }
     }
@@ -632,24 +636,24 @@ $breakpoints: (
         &__grid-circle,
         &__grid-polygon,
         &__spoke {
-            stroke: map-get($colors, neutral-600);
+            stroke: map.get($colors, neutral-600);
         }
 
         &__area {
-            fill: map-get($colors, primary-light);
-            stroke: map-get($colors, primary);
+            fill: map.get($colors, primary-light);
+            stroke: map.get($colors, primary);
         }
 
         &__category-label {
-            fill: map-get($colors, neutral-200);
+            fill: map.get($colors, neutral-200);
         }
 
         &__value-label {
-            fill: map-get($colors, neutral-300);
+            fill: map.get($colors, neutral-300);
         }
 
         &__scale-label {
-            fill: map-get($colors, neutral-400);
+            fill: map.get($colors, neutral-400);
         }
 
         &:hover {
@@ -664,21 +668,21 @@ $breakpoints: (
     }
 
     .radar-chart__tooltip {
-        color: map-get($colors, neutral-100);
-        background: map-get($colors, neutral-800);
-        border-color: map-get($colors, neutral-600);
+        color: map.get($colors, neutral-100);
+        background: map.get($colors, neutral-800);
+        border-color: map.get($colors, neutral-600);
 
         &__name {
-            color: map-get($colors, neutral-100);
+            color: map.get($colors, neutral-100);
         }
 
         &__value {
-            color: map-get($colors, primary-light);
+            color: map.get($colors, primary-light);
         }
 
         &::before {
-            background: map-get($colors, neutral-800);
-            border-color: map-get($colors, neutral-600);
+            background: map.get($colors, neutral-800);
+            border-color: map.get($colors, neutral-600);
         }
     }
 }
@@ -703,7 +707,7 @@ $breakpoints: (
 
         &__loading,
         &__error {
-            color: map-get($colors, black) !important;
+            color: map.get($colors, black) !important;
         }
     }
 
@@ -735,7 +739,7 @@ $breakpoints: (
 // ===== ENHANCED DATA POINT INTERACTIONS =====
 .radar-chart__data-point {
     cursor: pointer;
-    transition: all map-get($transitions, smooth);
+    transition: all map.get($transitions, smooth);
 
     &:hover {
         // No hover effects on data points
