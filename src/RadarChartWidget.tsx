@@ -54,6 +54,7 @@ const DEV_MODE = isDevelopmentMode();
  *   chartTitle="Team Performance"
  *   maxValue={5}
  *   showLabels={true}
+ *   hideWarnings={false}
  *   fillColor="#A084E7"
  *   strokeColor="#7C5AC4"
  * />
@@ -79,6 +80,7 @@ export function RadarChartWidget(props: RadarChartWidgetContainerProps): ReactEl
         showLegend,
         legendPosition,
         showValueLabels,
+        hideWarnings,
         onClickAction,
         style,
         class: className
@@ -265,7 +267,7 @@ export function RadarChartWidget(props: RadarChartWidgetContainerProps): ReactEl
                 onKeyDown={onClickAction ? handleKeyDown : undefined}
                 aria-label={onClickAction ? `Interactive radar chart: ${chartTitle || "Chart"}` : undefined}
             >
-                {DEV_MODE && validationResult.warnings.length > 0 && (
+                {DEV_MODE && !hideWarnings && validationResult.warnings.length > 0 && (
                     <div
                         className="radar-chart-widget__warnings"
                         role="alert"

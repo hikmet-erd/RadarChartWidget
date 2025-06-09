@@ -7,46 +7,40 @@
 
 A high-performance, accessible radar chart widget for Mendix applications that transforms numerical data into engaging, interactive visualizations. Built with modern React, TypeScript, and comprehensive accessibility features.
 
-## 🚀 Key Features
+## Key Features
 
-### 📊 **Advanced Data Visualization**
+### **Advanced Data Visualization**
 - **Dynamic Polygon Shapes**: Automatically adapts from pentagon to complex polygons based on data size
 - **Smooth Animations**: Cubic Bézier curves create fluid, professional transitions
 - **Interactive Tooltips**: Hover effects with precise value display and intelligent positioning
 - **Responsive Design**: Scales perfectly across desktop, tablet, and mobile devices
 
-### 🎨 **Comprehensive Customization**
+### **Comprehensive Customization**
 - **Rich Color Palette**: Full color customization with accessibility-compliant defaults
 - **Flexible Layout**: Configurable dimensions, padding, and label positioning
 - **Legend Options**: Four-position legend with customizable styling
 - **Grid Controls**: Adjustable grid levels and spoke visibility
 
-### ♿ **Accessibility Excellence**
+### **Accessibility Excellence**
 - **WCAG 2.1 AA Compliant**: Meets international accessibility standards
 - **Screen Reader Optimized**: Detailed descriptions and statistical summaries
 - **Keyboard Navigation**: Full functionality via Enter/Space key interaction
 - **Live Regions**: Dynamic content updates for assistive technology
 - **High Contrast Support**: Optimized for visual accessibility tools
 
-### 🔧 **Developer Experience**
+### **Developer Experience**
 - **TypeScript Support**: Full type safety with comprehensive interfaces
 - **Performance Optimized**: Aggressive memoization and efficient rendering
 - **Error Handling**: Graceful degradation with meaningful error messages
 - **Development Mode**: Enhanced debugging and validation warnings
 
-## 📦 Installation
-
-### From Mendix Marketplace
-1. Visit the [Mendix Marketplace](https://marketplace.mendix.com/)
-2. Search for "Radar Chart Widget"
-3. Download and import into your Mendix project
+## Installation
 
 ### Manual Installation
-1. Download the latest `.mpk` file from the [releases page](https://github.com/your-repo/releases)
-2. Import into Mendix Studio Pro via **Project** > **Import App Store module**
+1. Import into Mendix Studio Pro via **Project** > **Import App Store module**
 3. Add the widget to your page from the **Toolbox**
 
-## 🎯 Quick Start
+## Quick Start
 
 ### Basic Setup
 1. **Add the Widget**: Drag the Radar Chart Widget to your page
@@ -59,12 +53,11 @@ A high-performance, accessible radar chart widget for Mendix applications that t
 -- Entity: PerformanceMetric
 Name (String): "Communication", "Technical Skills", "Leadership"
 Score (Decimal): 4.2, 3.8, 4.5
-Category (String): "Soft Skills", "Hard Skills", "Management"
 ```
 
-## ⚙️ Configuration Guide
+## Configuration Guide
 
-### 📋 Data Source Configuration
+### Data Source Configuration
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
@@ -73,7 +66,7 @@ Category (String): "Soft Skills", "Hard Skills", "Management"
 | **Value Attribute** | Number | ✅ | Numeric attribute for values (Decimal, Integer, Long) |
 | **Max Value** | Number | ✅ | Maximum scale value (default: 5) |
 
-### 🎨 Appearance Settings
+### Appearance Settings
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
@@ -87,7 +80,7 @@ Category (String): "Soft Skills", "Hard Skills", "Management"
 | **Text Color** | Color | #333333 | Labels and text |
 | **Grid Color** | Color | #E0E0E0 | Grid lines and spokes |
 
-### 🖥️ Display Options
+### Display Options
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
@@ -97,15 +90,15 @@ Category (String): "Soft Skills", "Hard Skills", "Management"
 | **Legend Position** | Enum | bottom | top, right, bottom, left |
 | **Show Value Labels** | Boolean | false | Numeric values on data points |
 
-### 🖱️ Interaction Settings
+### Interaction Settings
 
 | Property | Type | Description |
 |----------|------|-------------|
 | **On Click Action** | Action | Optional action when chart is clicked |
 
-## 💡 Usage Examples
+## Usage Examples
 
-### 📈 Employee Performance Dashboard
+### Employee Performance Dashboard
 ```typescript
 // Data Structure
 const performanceData = [
@@ -125,7 +118,7 @@ fillColor: "#2ecc71"
 strokeColor: "#27ae60"
 ```
 
-### 🏢 Team Capability Matrix
+### Team Capability Matrix
 ```typescript
 // Multiple charts for team comparison
 const teamMembers = ["Alice", "Bob", "Charlie"];
@@ -140,7 +133,7 @@ teamMembers.forEach(member => {
 });
 ```
 
-### 🔍 Product Feature Analysis
+### Product Feature Analysis
 ```typescript
 // Competitive analysis visualization
 const features = [
@@ -158,25 +151,25 @@ fillOpacity: 0.4
 showValueLabels: true
 ```
 
-## ♿ Accessibility Features
+## Accessibility Features
 
-### 🎤 Screen Reader Support
+### Screen Reader Support
 - **Detailed Descriptions**: Comprehensive chart summaries with statistical insights
 - **Data Tables**: Alternative tabular representation for structured navigation
 - **Live Regions**: Dynamic content updates announced to assistive technology
 - **Contextual Instructions**: Clear guidance for keyboard interaction
 
-### ⌨️ Keyboard Navigation
+### Keyboard Navigation
 - **Enter/Space**: Activate click actions when configured
 - **Tab Navigation**: Follows standard web accessibility patterns
 - **Focus Indicators**: Clear visual focus states for keyboard users
 
-### 🎨 Visual Accessibility
+### Visual Accessibility
 - **High Contrast**: Optimized color combinations for visual impairments
 - **Scalable Text**: Respects user font size preferences
 - **Color Independence**: Information conveyed through multiple visual channels
 
-## 🌐 Browser Support
+## Browser Support
 
 | Browser | Version | Status |
 |---------|---------|--------|
@@ -191,7 +184,7 @@ showValueLabels: true
 - **Chrome Mobile**: 70+
 - **Samsung Internet**: 10.0+
 
-## 🔧 Development
+## Development
 
 ### Prerequisites
 - Node.js 14+
@@ -201,8 +194,7 @@ showValueLabels: true
 ### Building from Source
 ```bash
 # Clone repository
-git clone https://github.com/your-repo/radar-chart-widget.git
-cd radar-chart-widget
+git clone https://gitlab.rnd.mendix.com/online-platform/pathfinders/widgets/RadarChartWidget
 
 # Install dependencies
 npm install
@@ -214,19 +206,7 @@ npm run build
 npm run dev
 ```
 
-### Testing
-```bash
-# Run unit tests
-npm test
-
-# Run accessibility tests
-npm run test:a11y
-
-# Run visual regression tests
-npm run test:visual
-```
-
-## 📚 API Reference
+## API Reference
 
 ### Data Types
 ```typescript
@@ -254,7 +234,7 @@ interface RadarChartConfig {
 - **Name Length**: Warning at 20+ characters
 - **Special Characters**: Detected and reported in development mode
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -280,11 +260,11 @@ Enable development mode to see detailed warnings about:
 - Performance optimizations
 - Accessibility improvements
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
 - Code style and standards
@@ -292,7 +272,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 - Accessibility compliance
 - Pull request process
 
-## 📞 Support
+## Support
 
 - **Documentation**: [Widget Documentation](https://docs.mendix.com/widgets/)
 - **Community**: [Mendix Community Forum](https://forum.mendix.com/)

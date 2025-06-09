@@ -48,6 +48,10 @@
                 <caption>Show grid lines</caption>
                 <description>Whether to display grid lines on the chart</description>
             </property>
+            <property key="hideWarnings" type="boolean" defaultValue="false">
+                <caption>Hide warnings</caption>
+                <description>Whether to hide development warnings (useful for cleaner display in production)</description>
+            </property>
         </propertyGroup>
         <propertyGroup caption="Appearance">
             <property key="chartWidth" type="integer" defaultValue="400">

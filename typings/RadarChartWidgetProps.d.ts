@@ -21,6 +21,7 @@ export interface RadarChartWidgetContainerProps {
     maxValue: Big;
     showLabels: boolean;
     showGridLines: boolean;
+    hideWarnings: boolean;
     chartWidth: number;
     chartHeight: number;
     fillColor: string;
@@ -53,6 +54,7 @@ export interface RadarChartWidgetPreviewProps {
     maxValue: number | null;
     showLabels: boolean;
     showGridLines: boolean;
+    hideWarnings: boolean;
     chartWidth: number | null;
     chartHeight: number | null;
     fillColor: string;

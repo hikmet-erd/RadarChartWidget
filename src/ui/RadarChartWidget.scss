@@ -315,9 +315,8 @@ $breakpoints: (
     }
 
     &__area {
-        fill: map.get($colors, primary); // #A084E7 - EXACT SPEC
+        // fill and stroke colors now controlled by React component props for user customization
         // fill-opacity removed - let component prop control opacity
-        stroke: map.get($colors, primary-dark); // #7C5AC4 - EXACT SPEC
         stroke-width: 2; // Clean border width
         stroke-linejoin: round;
         transition: all map.get($transitions, smooth);
@@ -325,7 +324,7 @@ $breakpoints: (
     }
 
     &__data-point {
-        fill: map.get($colors, primary-dark); // #7C5AC4 - EXACT SPEC
+        // fill color now controlled by React component props for user customization
         stroke: map.get($colors, white);
         stroke-width: 2;
         transition: map.get($transitions, fast);
@@ -640,8 +639,7 @@ $breakpoints: (
         }
 
         &__area {
-            fill: map.get($colors, primary-light);
-            stroke: map.get($colors, primary);
+            // fill and stroke colors controlled by React component props in dark mode too
         }
 
         &__category-label {
